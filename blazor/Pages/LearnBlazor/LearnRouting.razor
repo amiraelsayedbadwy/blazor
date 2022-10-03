@@ -1,0 +1,39 @@
+﻿@page  "/LearnBlazor/learnrouting/{parameter1}"
+@page  "/LearnBlazor/learnrouting/{parameter1}/{parameter2}"
+@page "/LearnBlazor/learnrouting"
+@page "/learnrouting"
+@inject NavigationManager _NavigationManger
+
+
+<h3>Learn Routing</h3>
+<h4> parameter 1 :@Parameter1</h4>
+<h4> parameter 2 :@Parameter2</h4>
+@*<a href="learnRouting?Param1=tangy&Param2=blazor" class="btn btn-primary">navigation to query parameter</a>
+*@
+<button @onclick="NavigateToQueryParam">navigation to query parameter</button>
+<button class="btn btn-success" @onclick="LoadParameter">Load parameter</button>
+<br />
+<h3>query string parameters : @Param1 @Param2</h3>
+
+@code {
+    [Parameter]
+    public string Parameter1 { get; set; }
+    [Parameter]
+    public string Parameter2 { get; set; }
+
+    public string Param1 { get; set; }
+    public string Param2 { get; set; }
+    private void LoadParameter()
+    {
+        var absoluteUri = new Uri(_NavigationManger.Uri);
+        var queryParam = System.Web.HttpUtility.ParseQueryString(absoluteUri.Query);
+        Param1 = queryParam["Param1"];
+        Param2 = queryParam["Param2"];
+    }
+    private void NavigateToQueryParam()
+    {
+        _NavigationManger.NavigateTo("learnRouting?Param1=tangy&Param2=blazor");
+    }
+}
+
+@*we cand multiple rounting also we can paramter*@

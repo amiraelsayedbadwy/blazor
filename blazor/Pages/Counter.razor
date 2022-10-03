@@ -5,7 +5,11 @@
 <h1>Counter</h1>
 
 <p role="status">Current count: @currentCount</p>
-
+<MudButton Variant="Variant.Outlined">Default</MudButton>
+<MudButton Variant="Variant.Outlined" Color="Color.Primary">Primary</MudButton>
+<MudButton Variant="Variant.Outlined" Color="Color.Secondary">Secondary</MudButton>
+<MudButton Variant="Variant.Outlined" Disabled="true">Disabled</MudButton>
+<br />
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {

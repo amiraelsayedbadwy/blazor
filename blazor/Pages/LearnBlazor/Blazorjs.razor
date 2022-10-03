@@ -1,0 +1,59 @@
+﻿@page "/LearnBlazor/blazorjs"
+@inject IJSRuntime _JsRuntime
+<h3>balzorJs</h3>
+<div class="row">
+    <button class="btn btn-secondary" style="width:300px;" @onclick="TestConfirmationBox">Test confirm button</button>
+
+</div>
+<br />
+<div class="row">
+    <button class="btn btn-success m-2" style="width:300px;" @onclick="ToastrSuccess">toastr success </button>
+    <button class="btn btn-danger m-2" style="width:300px;" @onclick="ToastrFailure">toastr failure </button>
+</div>
+<br />
+<div class="row">
+
+    <button class="btn btn-success m-2" style="width:300px;" @onclick="SwalSuccess">sweetalert sucess</button>
+    <button class="btn btn-danger m-2" style="width:300px;" @onclick="SwalFailure">sweetalert failure </button>
+</div>
+<div class="row">
+    @if (ConfirmResult)
+    {
+        <p>confirmation has been made</p>
+    }
+    else
+    {
+        <p>confirmation pending</p>
+    }
+
+</div>
+@code {
+    private string ConfirmMessage = "Are u sure u want to click?";
+    private bool ConfirmResult { get; set; }
+    private async Task TestConfirmationBox()
+    {
+        ConfirmResult = await _JsRuntime.InvokeAsync<bool>("confirm", ConfirmMessage);
+    }
+    //toasr not work
+    private async Task ToastrSuccess()
+    {
+        await _JsRuntime.InvokeVoidAsync("ShowToastr", "success", "sucess");
+        // await _JsRuntime.ToastrSuccess("operation successfully");
+    }
+    private async Task ToastrFailure()
+    {// extension method not work
+        await _JsRuntime.InvokeVoidAsync("ShowToastr", "error", "error");
+        // await _JsRuntime.ToastrError("operation failed");
+    }
+    private async Task SwalSuccess()
+    {
+        await _JsRuntime.InvokeVoidAsync("ShowSwal", "success", "sucess");
+        // await _JsRuntime.ToastrSuccess("operation successfully");
+    }
+    private async Task SwalFailure()
+    {
+        await _JsRuntime.InvokeVoidAsync("ShowSwal", "error", "error");
+        // await _JsRuntime.ToastrSuccess("operation successfully");
+    }
+}
+

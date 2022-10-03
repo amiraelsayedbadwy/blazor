@@ -1,0 +1,37 @@
+﻿@page "/LearnBlazor/parentcomponent"
+<h3>parent childernt relation </h3>
+<CascadingValue Value="@MessageForGrandChild" Name="message">
+    <CascadingValue Value="@LuckyNumber" Name="luckyNumber">
+        <blazor.Pages.LearnBlazor.LearnBlazorComponenets._ChildComponent @ref="childComponent" OnButtonClick="ShowMessage" Title="this title passed from parent">
+            <ChildernContent> this render fragment from childern component to grand child</ChildernContent>
+            <DangerContent>danger content from render fragment</DangerContent>
+        </blazor.Pages.LearnBlazor.LearnBlazorComponenets._ChildComponent>
+    </CascadingValue>
+</CascadingValue>
+<p><b>@messageText</b></p>
+<br />
+<blazor.Pages.LearnBlazor.LearnBlazorComponenets._AnotherChildComponent InputAttributes="InputAttributesFromParent" />
+
+<div class="row">
+    <button class="btn btn-success" style="width:200px" @onclick="()=>childComponent.SwalSuccess()">show sweet alert</button>
+</div>
+@code {
+    private _ChildComponent childComponent;
+    public string messageText = "";
+    // we will ues cascading value to pass value insted of make properties to pass(pass value direct to grand without need chhild to be the connection
+    // we can have instead cascading value
+    public string MessageForGrandChild = "this is message from your grand parent (parent component";
+    public string LuckyNumber = "5";
+    private void ShowMessage()
+    {
+        messageText = "button is clicked from child component";
+    }
+    public Dictionary<string, object> InputAttributesFromParent { get; set; } = new Dictionary<string, object>()
+{
+        {"required","required" },
+        {"placeholder","Enter Name from parrent" },
+        {"maxlength",5 }
+    };
+}
+
+@*now will pass multiple attrbuites for input*@ 

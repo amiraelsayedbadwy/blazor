@@ -1,0 +1,16 @@
+﻿<h4 class="text-primary pt-3">Another Child component</h4>
+<input id="name" @attributes="InputAttributes" />
+@code {@*// make some property to added to input like placeholde maxlength and if it is required
+    [Parameter]
+    public string Placeholder { get; set; } = "Intial Text";
+
+    [Parameter]
+    public string Required { get; set; } = "required";
+    [Parameter]
+    public string MaxLength { get; set; } = "10";*@// new way by pass dictionary with all properties
+#region will simplify this by removing properties from here and add captureunattachedvalues = true it captures the values automatic from parent component
+[Parameter(CaptureUnmatchedValues =true)]
+    public Dictionary<string, object> InputAttributes { get; set; } = new Dictionary<string, object>();
+        #endregion
+}
+

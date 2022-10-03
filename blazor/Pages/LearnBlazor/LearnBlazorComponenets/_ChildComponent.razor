@@ -1,0 +1,47 @@
+﻿@inject IJSRuntime _JsRuntime
+<div>
+    <div class="alert alert-info">@Title</div>
+    <div class="alert alert-success">
+        @if (DangerContent != null)
+        {
+            <span>@DangerContent</span>
+        }
+        else
+        {
+            @if (ChildernContent != null)
+            {
+                <span>@ChildernContent</span>
+            }
+            else
+            {
+                <span>hello from empty fragment </span>
+            }
+        }
+    </div>
+    <button class="btn btn-danger" @onclick="OnButtonClick">Button to clicked</button>
+    <_GrandChildComponent></_GrandChildComponent>
+</div>
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildernContent { get; set; }
+
+    [Parameter]
+    public RenderFragment DangerContent { get; set; }
+
+    [Parameter]
+    public EventCallback OnButtonClick { get; set; }
+
+    public async Task SwalSuccess()
+    {
+        await _JsRuntime.InvokeVoidAsync("ShowSwal", "success", "sucess");
+        // await _JsRuntime.ToastrSuccess("operation successfully");
+    }
+
+
+    @*[Parameter]
+        public string MessageForGrandChild { get; set; }
+            we remove it as we use cascading value to pass direct to parent *@}
+
